@@ -5,10 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.newsapp.models.Article
+import com.example.newsapp.models.Articles
 
 @Database(
-    entities = [Article::class],
+    entities = [Articles::class],
     version = 1
 )
 @TypeConverters(Converters::class)

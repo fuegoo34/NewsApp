@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newsapp.databinding.ItemArticlePreviewBinding
-import com.example.newsapp.models.Article
+import com.example.newsapp.models.Articles
 
 
 class NewsAdapter() : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
@@ -15,20 +15,20 @@ class NewsAdapter() : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
     inner class ArticleViewHolder(val binding: ItemArticlePreviewBinding) : RecyclerView.ViewHolder(binding.root)
 
-    private val differCallback = object : DiffUtil.ItemCallback<Article>() {
+    private val differCallback = object : DiffUtil.ItemCallback<Articles>() {
 
-        override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
+        override fun areItemsTheSame(oldItem: Articles, newItem: Articles): Boolean {
             return oldItem.url == newItem.url
         }
 
-        override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
+        override fun areContentsTheSame(oldItem: Articles, newItem: Articles): Boolean {
             return oldItem == newItem
         }
 
     }
 
     val differ = AsyncListDiffer(this,differCallback)
-    private var onItemClickListener: ((Article) -> Unit)? = null
+    private var onItemClickListener: ((Articles) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         val binding = ItemArticlePreviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -53,7 +53,7 @@ class NewsAdapter() : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
             }
         }
     }
-    fun setOnItemClickListener(listener: (Article) -> Unit) {
+    fun setOnItemClickListener(listener: (Articles) -> Unit) {
         onItemClickListener = listener
     }
 

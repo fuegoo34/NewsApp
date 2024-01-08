@@ -8,10 +8,9 @@ import android.net.NetworkCapabilities.*
 import android.os.Build
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsapp.NewsApplication
-import com.example.newsapp.models.Article
+import com.example.newsapp.models.Articles
 import com.example.newsapp.models.NewsResponse
 import com.example.newsapp.repository.NewsRepository
 import com.example.newsapp.util.Resource
@@ -54,8 +53,8 @@ class NewsViewModel(
                 if(breakingNewsResponse == null) {
                     breakingNewsResponse = resultResponse
                 }else{
-                    val oldArticle = breakingNewsResponse?.article
-                    val newArticle = resultResponse.article
+                    val oldArticle = breakingNewsResponse?.articles
+                    val newArticle = resultResponse.articles
                     oldArticle?.addAll(newArticle)
                 }
                 return Resource.Success(breakingNewsResponse ?: resultResponse)
@@ -73,8 +72,8 @@ class NewsViewModel(
                 if(searchNewsResponse == null) {
                     searchNewsResponse = resultResponse
                 }else{
-                    val oldArticle = searchNewsResponse?.article
-                    val newArticle = resultResponse.article
+                    val oldArticle = searchNewsResponse?.articles
+                    val newArticle = resultResponse.articles
                     oldArticle?.addAll(newArticle)
                 }
                 return Resource.Success(searchNewsResponse ?: resultResponse)
@@ -83,14 +82,14 @@ class NewsViewModel(
         return Resource.Error(response.message())
     }
 
-    fun savedArticle(article: Article) = viewModelScope.launch {
-        newsRepository.upsert(article)
+    fun savedArticle(articles: Articles) = viewModelScope.launch {
+        newsRepository.upsert(articles)
     }
 
     fun getSavedNews() = newsRepository.getSavedNews()
 
-    fun deleteArticle(article: Article) = viewModelScope.launch {
-        newsRepository.deleteArticle(article)
+    fun deleteArticle(articles: Articles) = viewModelScope.launch {
+        newsRepository.deleteArticle(articles)
     }
 
     private suspend fun safeSearchNewsCall (searchQuery: String) {

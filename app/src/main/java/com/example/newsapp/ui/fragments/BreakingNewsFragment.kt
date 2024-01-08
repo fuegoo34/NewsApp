@@ -26,7 +26,6 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
     private var _binding: FragmentBreakingNewsBinding? = null
     private val binding get() = _binding!!
 
-    val TAG = "BreakingNewsFragment"
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,7 +36,7 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
 
         newsAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
-                putSerializable("Article", it)
+                putSerializable("Articles", it)
             }
             findNavController().navigate(
                 R.id.action_breakingNewsFragment_to_articleFragment,
@@ -50,7 +49,7 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
                 is Resource.Success -> {
                     hideProgressBar()
                     response.data?.let { newsResponse ->
-                        newsAdapter.differ.submitList(newsResponse.article.toList())
+                        newsAdapter.differ.submitList(newsResponse.articles.toList())
                         val totalPages = newsResponse.totalResults / QUERY_PAGE_SIZE + 2
                         isLastPage = viewModel.breakingNewsPage == totalPages
                         if (isLastPage) {
