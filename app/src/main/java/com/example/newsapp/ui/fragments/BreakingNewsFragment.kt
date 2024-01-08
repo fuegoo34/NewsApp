@@ -38,10 +38,7 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
             val bundle = Bundle().apply {
                 putSerializable("Articles", it)
             }
-            findNavController().navigate(
-                R.id.action_breakingNewsFragment_to_articleFragment,
-                bundle
-            )
+            findNavController().navigate(BreakingNewsFragmentDirections.actionBreakingNewsFragmentToArticleFragment(it))
         }
 
         viewModel.breakingNews.observe(viewLifecycleOwner, Observer { response ->
